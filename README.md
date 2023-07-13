@@ -1,1 +1,1 @@
-# MICCAI_MRC_VFC
+# MRC-VFC

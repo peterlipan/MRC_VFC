@@ -1,0 +1,42 @@
+# distributed training
+nodes: 1
+gpus: 4
+nr: 0
+dataparallel: 0
+workers: 8
+
+# Paths
+data_path: "/mnt/ssd/li/ISIC2019LT"
+csv_file_train: "./split/ISIC2019LT/training.csv"
+csv_file_val: "./split/ISIC2019LT/validation.csv"
+csv_file_test: "./split/ISIC2019LT/testing.csv"
+checkpoints: "./checkpoints"
+
+# Dataset Options
+dataset: "ISIC2019LT"
+imbalance_factor: 500 # only for ISIC2019LT
+
+# Stage1 options
+seed: 42
+batch_size: 128
+image_size: 224
+start_epoch: 0
+epochs: 100
+pretrained: True
+backbone: "resnet18"
+reload: False
+
+# Stage1 options
+lr: 0.01
+ema_decay: 0.999
+batch_loss_weight: 10
+channel_loss_weight: 10
+classification_loss_weight: 1
+probability_loss_weight: 5
+
+# Stage2 options
+stage2_batch_size: 256
+stage2_epochs: 500
+classifier_lr: 0.00001
+backbone_lr: 0.000001
+virtual_size: 50000
