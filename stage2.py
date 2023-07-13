@@ -122,28 +122,27 @@ def m_step(classifier, opt, loader, loss_func, logger):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Ours")
+    parser = argparse.ArgumentParser()
     yaml_config = yaml_config_hook("./config/configs.yaml")
     for k, v in yaml_config.items():
         parser.add_argument(f"--{k}", default=v, type=type(v))
 
-    parser.add_argument('--wandb', action="store_false", help='disable wandb')
+    parser.add_argument('--debug', action="store_true", help='debug mode(disable wandb)')
     args = parser.parse_args()
 
     args.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    if args.wandb:
-        wandb.login(key="cb1e7d54d21d9080b46d2b1ae2a13d895770aa29")
+    if not args.debug:
+        wandb.login(key="[Your wandb key here]")
 
         config = dict()
         for k, v in yaml_config.items():
             config[k] = v
 
         wandb_logger = wandb.init(
-            project="our_framework_%s" % args.dataset,
-            notes="MICCAI 2023 our framework",
-            tags=["Ours", "MICCAI23", "Contrastive learning", "Consistency Loss", "feature rebalance",
-                  "classification loss"],
+            project="MRC_VFC_on_%s"%args.dataset,
+            notes="MICCAI 2023",
+            tags=["MICCAI23", "Class imbalance", "Dermoscopy", "Representation Learning"],
             config=config
         )
     else:
@@ -200,7 +199,7 @@ if __name__ == "__main__":
             backbone_model, train_loader, test_loader, val_loader, args.device
         )
 
-        # Classifier Calibration with Virtual Samples
+        # Virtual sample compensation
         if args.virtual_size > 0:
             train_X, train_y = virtual_feature_compensation(train_X, train_y, n_classes, args.virtual_size)
 
@@ -242,7 +241,7 @@ if __name__ == "__main__":
         backbone_model, train_loader, test_loader, val_loader, args.device
     )
 
-    # Classifier Calibration with Virtual Samples
+    # VFC
     if args.virtual_size > 0:
         train_X, train_y = virtual_feature_compensation(train_X, train_y, n_classes, args.virtual_size)
 
