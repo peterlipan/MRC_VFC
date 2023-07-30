@@ -12,3 +12,6 @@ checkpoints/
 # MAC os
 .DS_Store
 __MACOSX/
+
+# PyCharm
+**/.idea
