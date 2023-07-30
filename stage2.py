@@ -234,25 +234,3 @@ if __name__ == "__main__":
         print(
             f"Epoch [{epoch}/{args.stage2_epochs}]\t Loss: {loss_epoch / len(arr_train_loader)}\t Accuracy: {acc_epoch / len(arr_train_loader)}"
         )
-
-    # final testing
-    # extract features with the backbone
-    train_X, train_y, test_X, test_y, val_X, val_y = get_features(
-        backbone_model, train_loader, test_loader, val_loader, args.device
-    )
-
-    # VFC
-    if args.virtual_size > 0:
-        train_X, train_y = virtual_feature_compensation(train_X, train_y, n_classes, args.virtual_size)
-
-    arr_train_loader, arr_test_loader, arr_val_loader = create_data_loaders_from_arrays(
-        train_X, train_y, test_X, test_y, val_X, val_y, args.stage2_batch_size
-    )
-    confusion_matrix = epochTest(classifier_model, arr_test_loader)
-    avg_acc = confusion_matrix.diagonal() / confusion_matrix.sum(axis=1)
-    labels = test_dataset.get_labels()
-    _, counts = np.unique(labels, return_counts=True)
-    class_names = test_dataset.class_names
-    df = pd.DataFrame({'Lesion': class_names, 'Accuracy': avg_acc, 'Counts': counts})
-    if args.wandb:
-        wandb_logger.log({'Performance': df})

@@ -26,6 +26,7 @@ Execute the first stage of training of our framework.
 ```bash
 python stage1.py
 ```
+* If you are going to use the wandb to log the training process, please replace wandb.login(key="[Your wandb key here]") with your own key.
 
 
 
