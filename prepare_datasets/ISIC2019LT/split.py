@@ -63,9 +63,9 @@ def construct_LT_dataset(df, imbalance_factor, random_seed):
         val_df = pd.concat([val_df, temp_val_df])
 
     # shuffle the rows
-    train_df = train_df.sample(frac=1).reset_index(drop=True)
-    test_df = test_df.sample(frac=1).reset_index(drop=True)
-    val_df = val_df.sample(frac=1).reset_index(drop=True)
+    train_df = train_df.sample(frac=1, random_state=random_seed).reset_index(drop=True)
+    test_df = test_df.sample(frac=1, random_state=random_seed).reset_index(drop=True)
+    val_df = val_df.sample(frac=1, random_state=random_seed).reset_index(drop=True)
 
     return train_df, test_df, val_df
 
