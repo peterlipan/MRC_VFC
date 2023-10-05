@@ -49,7 +49,7 @@ def create_data_loaders_from_arrays(X_train, y_train, X_test, y_test, X_val, y_v
         torch.from_numpy(X_train), torch.from_numpy(y_train)
     )
     train_loader = torch.utils.data.DataLoader(
-        train, batch_size=batch_size, shuffle=False
+        train, batch_size=batch_size, shuffle=True
     )
 
     test = torch.utils.data.TensorDataset(
