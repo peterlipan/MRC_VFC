@@ -1,6 +1,6 @@
 # MRC-VFC
 
-This is the official repo of our paper *Combat Long-tails in Medical Classification with Relation-aware Consistency and Virtual Features Compensation*.
+[MICCAI 2023] This is the official repo of our paper *Combat Long-tails in Medical Classification with Relation-aware Consistency and Virtual Features Compensation*.
 
 
 
