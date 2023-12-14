@@ -2,7 +2,7 @@
 
 [MICCAI 2023] This is the official repository of our paper [**Combat Long-tails in Medical Classification with Relation-aware Consistency and Virtual Features Compensation**](https://peterlipan.github.io/data/MICCAI_23_Li_camera_ready.pdf).
 
-
+![framework](./framework.png)
 
 # Requirements
 
